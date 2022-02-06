@@ -30,8 +30,16 @@ public class _01_IntroToArrayLists {
     		}
     	}
         // 6. Print all the Strings in reverse order.
-
-        // 7. Print only the Strings that have the letter 'e' in them.
-        
+    	for(int i=list.size(); i>0; i--) {
+    		System.out.println(i);
     }
-}
+        // 7. Print only the Strings that have the letter 'e' in them.
+    	for(String e: list) {
+			if(e.contains("e")) {
+				System.out.println(e);
+			}
+		}
+
+        }
+    }
+
