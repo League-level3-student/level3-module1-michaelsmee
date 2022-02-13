@@ -2,12 +2,23 @@ package _00_Intro_To_ArrayLists;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class _02_GuestBook implements ActionListener {
+	JFrame frame = new JFrame();
+	JPanel panel = new JPanel();
+	JButton button = new JButton();
+	JButton button2 = new JButton();
+	String newName;
+	ArrayList<String> names = new ArrayList<String>();
+	int number = 0;
+	String text = "";
+	
     /*
      * Create a GUI with two buttons. One button reads "Add Name" and the other
      * button reads "View Names". When the add name button is clicked, display
@@ -21,12 +32,8 @@ public class _02_GuestBook implements ActionListener {
      * Guest #4: Donny Doners
      */
 	public void run() {
-	JFrame frame = new JFrame();
-	frame.setVisible(true);
-	JPanel panel = new JPanel();
-	JButton button = new JButton();
-	JButton button2 = new JButton();
 	
+	frame.setVisible(true);
 	frame.add(panel);
 	panel.add(button);
 	panel.add(button2);
@@ -43,7 +50,16 @@ public class _02_GuestBook implements ActionListener {
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
 		if(button == arg0.getSource()) {
-			
+			newName = JOptionPane.showInputDialog("Add a name");
+			number+=1;
+			names.add("Guest #" + number + ": " + newName + "\n");
 		}
+		else if(button2 == arg0.getSource()) {
+			text = "";
+			for(int i=0; i<names.size(); i++) {
+			text += names.get(i);
+		}
+			JOptionPane.showMessageDialog(null, text);
 	}
+}
 }
