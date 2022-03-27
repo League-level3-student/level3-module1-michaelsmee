@@ -41,7 +41,7 @@ public class GameBoard extends JFrame implements ActionListener {
         // Can't play the game if there isn't an even number of cards
         if( TOTAL_CARDS % 2 != 0) {
             System.out.println("ERROR: Odd number of total cards, " + TOTAL_CARDS);
-            System.exit(1);
+            System.exit(1); 
         }
         
         // 2. Initialize the ArrayList of Cards declared above

@@ -98,7 +98,7 @@ public class Card extends JButton {
         setFaceUp(false);
         setMatched(true);
         setIcon(null);
-        setText(null);
+        setText(null); 
         setBorder(null);
         setEnabled(false);
     }

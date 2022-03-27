@@ -6,4 +6,4 @@ public class _06_MemoryGame {
         GameBoard game = new GameBoard();
         game.setup();
     }
-}
+}       
