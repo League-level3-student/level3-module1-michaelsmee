@@ -19,7 +19,7 @@ public class GameBoard extends JFrame implements ActionListener {
     static Card secondSelectedCard = null;
     
     // 1. Initialize TOTAL_CARDS to 2;
-    static int TOTAL_CARDS = 2;
+    static int TOTAL_CARDS = 52;
     
     ArrayList<Card> cards;
     
@@ -27,12 +27,14 @@ public class GameBoard extends JFrame implements ActionListener {
     JLabel timeLabel;
     JButton newGameButton;
     
+    
     Timer updateTimer;
     Timer gameClock;
     
     int seconds;
     
     public void setup() {
+    	this.setVisible(true);
         gameClock = new Timer(1000, this);
         updateTimer = new Timer(750, this);
         
@@ -49,10 +51,24 @@ public class GameBoard extends JFrame implements ActionListener {
         //    Also, add action listeners to each Card object and then add each
         //    of the Card objects to the ArrayList of Cards.
         for(int i=0; i<TOTAL_CARDS; i++) {
-        	Card card = new Card(1);
+        	
+        	Card card = new Card((i%13)+2);
         	
         	cards.add(card);
         	cards.get(i).addActionListener(this);
+        	if(i == 9) {
+        		card.setFaceUpIcon(Card.cardImagesPath + (i+1) + "jackcard.png");
+        	}
+        	if(i == 10) {
+        		card.setFaceUpIcon(Card.cardImagesPath + (i+1) + "queencard.jpeg");
+        	}
+        	if(i == 11) {
+        		card.setFaceUpIcon(Card.cardImagesPath + (i+1) + "kingcard.jpeg");
+        	}
+        	if(i == 12) {
+        		card.setFaceUpIcon(Card.cardImagesPath + (i+1) + "acecard.jpg");
+        	}
+        	
         }
         
         // 4. Use Collections.shuffle() method to randomize the order of
@@ -77,7 +93,9 @@ public class GameBoard extends JFrame implements ActionListener {
     // 9. Fill in the drawCards method to draw all the cards in the ArrayList.
     //    Run your code and verify 2 cards are displayed and the game works.
     public void drawCards() {
-        
+        for(int i=0; i<cards.size(); i++) {
+        	cards.get(i).draw();
+        }
     }
     
     // 10. 
@@ -87,7 +105,7 @@ public class GameBoard extends JFrame implements ActionListener {
     // 
     // Go back and modify the code to have a total of 52 cards and 4 copies
     // of each card, meaning x4 2s, x4 3s, x4 Jacks, ... one of each suit.
-    // You can use Jacks=11, Queens=12, Kings=12, Aces=13
+    // You can use Jacks=11, Queens=12, Kings=13, Aces=14
     // 
     // EXTRA: You can use real card faces images instead of numbers by using
     // the images in the CardImages folder and the setFaceUpIcon() method.
