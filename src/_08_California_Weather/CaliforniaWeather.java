@@ -2,6 +2,8 @@ package _08_California_Weather;
 
 import java.util.HashMap;
 
+import javax.swing.JOptionPane;
+
 /*
  * OBJECTIVE:
  * 1. Create a program that allows the user to search for the weather
@@ -31,6 +33,22 @@ public class CaliforniaWeather {
     
     void start() {
         HashMap<String, WeatherData> weatherData = Utilities.getWeatherData();
+        String Choice;
+        String City;
+        String Weather;
+        String Temperature;
+        Choice = JOptionPane.showInputDialog("Enter a place, weather, or temperature");
+        if(Choice.equals("place")) {
+        	City = Utilities.capitalizeWords(JOptionPane.showInputDialog("Which city do you want to enter?"));
+        	
+        }
+        else if(Choice.equals("weather")) {
+        	Weather = JOptionPane.showInputDialog("What weather are you looking for?");
+        }
+        else if(Choice.equals("temperature")) {
+        	Temperature = JOptionPane.showInputDialog("What temperature range are you looking for?");
+        }
+        
         
         // All city keys have the first letter capitalized of each word
         String cityName = Utilities.capitalizeWords( "National City" );
