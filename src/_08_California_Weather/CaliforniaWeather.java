@@ -34,30 +34,49 @@ public class CaliforniaWeather {
     void start() {
         HashMap<String, WeatherData> weatherData = Utilities.getWeatherData();
         String Choice;
-        String City;
-        String Weather;
+        String cityName="";
+        String Weather="";
         String Temperature;
         Choice = JOptionPane.showInputDialog("Enter a place, weather, or temperature");
+   
         if(Choice.equals("place")) {
-        	City = Utilities.capitalizeWords(JOptionPane.showInputDialog("Which city do you want to enter?"));
-        	
+        	cityName = Utilities.capitalizeWords(JOptionPane.showInputDialog("Which city do you want to enter?"));
+        	   WeatherData datum = weatherData.get(cityName);
+        	if( datum == null ) {
+                System.out.println("Unable to find weather data for: " + cityName);
+            } else {
+                System.out.println(cityName + " is " + datum.weatherSummary + " with a temperature of " + datum.temperatureF + " F");
+            }
         }
         else if(Choice.equals("weather")) {
+        	String weatherList = "";
         	Weather = JOptionPane.showInputDialog("What weather are you looking for?");
+        	for(String city: weatherData.keySet()) {
+        		if(weatherData.get(city).weatherSummary.equals(Weather)) {
+        			weatherList= weatherList + city + " ";
+        		}
+        	}
+        	System.out.println("The cities with the weather of " + Weather + " is " + weatherList);
         }
         else if(Choice.equals("temperature")) {
-        	Temperature = JOptionPane.showInputDialog("What temperature range are you looking for?");
+        	String temperatureList = "";
+   
+        	Double temp1 = Double.parseDouble(JOptionPane.showInputDialog("What is the lowest temperature you are looking for?"));
+        	Double temp2 = Double.parseDouble(JOptionPane.showInputDialog("What is the highest temperature you are looking for?"));
+        	for(String city: weatherData.keySet()) {
+        		
+        		if(weatherData.get(city).temperatureF >= (temp1) && weatherData.get(city).temperatureF <= (temp2)) {
+        			temperatureList = temperatureList + city + " ";
+        		}
+        	}
+        	System.out.println("The cities between the temperature " + temp1 + " and " +temp2 + " are " + temperatureList);
         }
         
         
         // All city keys have the first letter capitalized of each word
-        String cityName = Utilities.capitalizeWords( "National City" );
-        WeatherData datum = weatherData.get(cityName);
+        //String cityName = Utilities.capitalizeWords( "National City" );
         
-        if( datum == null ) {
-            System.out.println("Unable to find weather data for: " + cityName);
-        } else {
-            System.out.println(cityName + " is " + datum.weatherSummary + " with a temperature of " + datum.temperatureF + " F");
-        }
+        
+        
     }
 }
