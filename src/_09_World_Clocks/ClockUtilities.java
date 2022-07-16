@@ -129,8 +129,10 @@ public class ClockUtilities {
         String requestedCityFormatted = city + ", " + country;
 
         for (String fullCityName : cityCoordinates.keySet()) {
+        		//System.out.println(fullCityName);
             if (fullCityName.equalsIgnoreCase(requestedCityFormatted)) {
                 coordinate = cityCoordinates.get(fullCityName);
+            
                 break;
             }
         }

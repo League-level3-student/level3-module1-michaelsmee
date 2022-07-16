@@ -3,9 +3,11 @@ package _09_World_Clocks;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -43,19 +45,22 @@ public class WorldClocks implements ActionListener {
     JFrame frame;
     JPanel panel;
     JTextArea textArea;
+    JButton button;
     
     String city;
     String dateStr;
     String timeStr;
-    
+    HashMap<String, TimeZone> worldClocks;
    
     
     public WorldClocks() {
         clockUtil = new ClockUtilities();
-
+        
         // The format for the city must be: city, country (all caps)
         city = JOptionPane.showInputDialog("Enter a city, country in all caps");
         timeZone = clockUtil.getTimeZoneFromCityName(city);
+        
+        worldClocks = new HashMap<String,TimeZone>();
         
         Calendar calendar = Calendar.getInstance(timeZone);
         String month = calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault());
@@ -67,12 +72,15 @@ public class WorldClocks implements ActionListener {
         // Sample starter program
         frame = new JFrame();
         panel = new JPanel();
+        button = new JButton();
         textArea = new JTextArea();
+        button.addActionListener(this);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
         frame.setSize(100, 100);
         frame.add(panel);
         panel.add(textArea);
+        panel.add(button);
         textArea.setText(city + "\n" + dateStr);
         
         // This Timer object is set to call the actionPerformed() method every
@@ -83,13 +91,24 @@ public class WorldClocks implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent arg0) {
-        Calendar c = Calendar.getInstance(timeZone);
+    		if(arg0.getSource()==button) {
+    			city = JOptionPane.showInputDialog("Enter a city name, country in all caps");
+    			timeZone = clockUtil.getTimeZoneFromCityName(city);
+    			worldClocks.put(city, timeZone);
+    			
+    		}
+    		String output = "";
+    	for(String city:worldClocks.keySet()) {
+        Calendar c = Calendar.getInstance(clockUtil.getTimeZoneFromCityName(city));
         String militaryTime = c.get(Calendar.HOUR_OF_DAY) + ":" + c.get(Calendar.MINUTE) + ":" + c.get(Calendar.SECOND);
         String twelveHourTime = " [" + c.get(Calendar.HOUR) + ":" + c.get(Calendar.MINUTE) + ":" + c.get(Calendar.SECOND) + "]";
         timeStr = militaryTime + twelveHourTime;
         
-        System.out.println(timeStr);
-        textArea.setText(city + "\n" + dateStr + "\n" + timeStr);
-        frame.pack();
+        //System.out.println(timeStr);
+      
+        output += city + "\n" + dateStr + "\n" + timeStr + "\n";
+    		}
+    	textArea.setText(output);
+    	frame.pack();
     }
 }
